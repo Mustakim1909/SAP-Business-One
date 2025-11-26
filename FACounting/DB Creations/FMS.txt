@@ -1,0 +1,22 @@
+﻿
+------------------------------Invoices
+
+SELECT  CASE 
+WHEN $[OINV.U_EIN_TYPE] = 'Simplified Invoice' then
+'Sellers Name:'|| ifnull(T0."CompnyName",'') || char(13) ||' Seller VAT No:'  ||ifnull(T0."TaxIdNum",'')|| char(13) ||'Seller Group VAT No:'  ||ifnull(T0."TaxIdNum2",'') || char(13) ||'Date:'||$[$12.0.0]|| char(13) || 'Total (with VAT):'||$[OINV.DocTotal] || char(13)||'VAT Total:'||$[OINV.VatSum]
+WHEN  $[OINV.U_EIN_TYPE] = 'Tax Invoice' then
+'Sellers Name:'|| ifnull(T0."CompnyName",'') || char(13) ||'Seller VAT No:'  ||ifnull(T0."TaxIdNum",'')|| char(13)||'Seller Group VAT No:'  ||ifnull(T0."TaxIdNum2",'') || char(13)  ||'Date:'||$[$12.0.0] || char(13) ||'Total (with VAT):'||$[OINV.DocTotal]|| char(13) ||'VAT Total:'||$[OINV.VatSum]|| char(13) 
+end
+FROM  OADM T0
+
+
+
+-------------------------Credit Note
+
+SELECT  CASE 
+WHEN $[ORIN.U_EIN_TYPE] = 'Simplified Invoice' then
+'Sellers Name:'|| ifnull(T0."CompnyName",'') || char(13) ||' Seller VAT No:'  ||ifnull(T0."TaxIdNum",'')|| char(13) ||'Seller Group VAT No:'  ||ifnull(T0."TaxIdNum2",'') || char(13) ||'Date:'||$[$12.0.0]|| char(13) || 'Total (with VAT):'||$[ORIN.DocTotal] || char(13)||'VAT Total:'||$[ORIN.VatSum]
+WHEN  $[ORIN.U_EIN_TYPE] = 'Tax Invoice' then
+'Sellers Name:'|| ifnull(T0."CompnyName",'') || char(13) ||'Seller VAT No:'  ||ifnull(T0."TaxIdNum",'')|| char(13)||'Seller Group VAT No:'  ||ifnull(T0."TaxIdNum2",'') || char(13)  ||'Date:'||$[$12.0.0] || char(13) ||'Total (with VAT):'||$[ORIN.DocTotal]|| char(13) ||'VAT Total:'||$[ORIN.VatSum]|| char(13) 
+end
+FROM  OADM T0

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SlientInstallation="No" SlientUpgrade="No" Partnernmsp="EInvoice" SchemaVersion="3.0" Type="" MultipleVersion="false" OnDemand="" OnPremise="" ExtName="EInvoiceFlick" ExtVersion="0.0.0.2" Contdata="" Partner="Flick" DBType="HANA" ClientType="A">
+  <Validity>
+    <SBOCompatibility>
+      <Version From="9.0" To="10.3" />
+    </SBOCompatibility>
+  </Validity>
+  <Configuration>
+    <Repository>
+      <Properties />
+    </Repository>
+    <Deployment>
+      <Properties />
+    </Deployment>
+    <Assignment>
+      <Properties />
+    </Assignment>
+  </Configuration>
+  <Addons>
+    <Addon Name="" Group="" ForceFlag="" Visible="" AutoAssign="" SelfUpgrd="">
+      <x86 AddonExe="D:\Taseeb Work\EInvoiceFlick92\FACounting\bin\Debug\EInvoice.exe" AddonSig="">
+        <Installation>
+          <Files>
+            <File FileName="BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="EINFLICK.dll">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.b1s">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe.config">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.pdb">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Log.txt">
+              <Actions />
+            </File>
+            <File FileName="NewSigned.xml">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKRoots.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\zxing.dll">
+              <Actions />
+            </File>
+          </Files>
+        </Installation>
+        <Uninstallation>
+          <Files>
+            <File FileName="BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="EINFLICK.dll">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.b1s">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe.config">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.pdb">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Log.txt">
+              <Actions />
+            </File>
+            <File FileName="NewSigned.xml">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKRoots.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\zxing.dll">
+              <Actions />
+            </File>
+          </Files>
+        </Uninstallation>
+      </x86>
+      <x64 AddonExe="D:\Taseeb Work\EInvoiceFlick92\FACounting\bin\Debug\EInvoice.exe" AddonSig="">
+        <Installation>
+          <Files>
+            <File FileName="BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="EINFLICK.dll">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.b1s">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe.config">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.pdb">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Log.txt">
+              <Actions />
+            </File>
+            <File FileName="NewSigned.xml">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKRoots.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\zxing.dll">
+              <Actions />
+            </File>
+          </Files>
+        </Installation>
+        <Uninstallation>
+          <Files>
+            <File FileName="BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="EINFLICK.dll">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.b1s">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.exe.config">
+              <Actions />
+            </File>
+            <File FileName="EInvoice.pdb">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Log.txt">
+              <Actions />
+            </File>
+            <File FileName="NewSigned.xml">
+              <Actions />
+            </File>
+            <File FileName="Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\BouncyCastle.Crypto.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\ChilkatDotNet47.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Core.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Text.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.Util.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.OpenJDK.XML.API.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\IKVM.Runtime.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Newtonsoft.Json.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\RestSharp.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SAPBusinessOneSDK.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKNETFrameWorkLib.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\SDKRoots.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\Utility.dll">
+              <Actions />
+            </File>
+            <File FileName="Dlls\zxing.dll">
+              <Actions />
+            </File>
+          </Files>
+        </Uninstallation>
+      </x64>
+    </Addon>
+  </Addons>
+  <XApps>
+    <XApp Name="" Path="" FileName="" />
+  </XApps>
+  <UDQs>
+    <UDQ udqname="">
+      <Hana FileName="" />
+    </UDQ>
+  </UDQs>
+</AddOnRegData>

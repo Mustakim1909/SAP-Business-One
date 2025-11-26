@@ -1,0 +1,17 @@
+﻿if (:object_type='13' or :object_type='14') and :error = 0
+then
+
+
+ CALL "SBO_SP_EINVOICE"
+(
+	:object_type,
+	:transaction_type,
+	:num_of_cols_in_key,
+	:list_of_key_cols_tab_del,
+	:list_of_cols_val_tab_del,
+	error,
+	error_message
+);
+
+
+end if;
