@@ -235,12 +235,12 @@ namespace EInvoice.Models
 			[JsonProperty("Consolidated Buyer Identification Number / Passport Number")]
 
 			public string ConsolidatedBuyerIdentificationNumberOrPassportNumber { get; set; }
-			/*[JsonProperty("Original Invoice Number")]
+			[JsonProperty("Original Invoice Number")]
 			public string OriginalInvoiceNumber;
 			
 			[JsonProperty("Original Invoice IRBM Unique No")]
 			public string OriginalInvoiceIRBMUniqueNo;
-*/
+
 			[JsonProperty("LineItem")]
 			public List<LineItem> LineItem { get; set; }
 		}

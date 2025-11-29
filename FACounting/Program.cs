@@ -92,8 +92,10 @@ namespace EInvoice
                 Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
 
                 Application.SBO_Application.ItemEvent += new SAPbouiCOM._IApplicationEvents_ItemEventEventHandler(objMenu.SBO_Application_ItemEvent);
+                
 
-				Application.SBO_Application.FormDataEvent +=  objMenu.SBO_Application_FormDataEvent;
+
+                Application.SBO_Application.FormDataEvent +=  objMenu.SBO_Application_FormDataEvent;
 
                 oApp.RegisterMenuEventHandler(objMenu.SBO_Application_MenuEvent);
 

@@ -320,6 +320,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfigManager.cs" />
+    <Compile Include="CreditNote.cs" />
     <Compile Include="Models\Appsettings.cs" />
     <Compile Include="PDFGenerator.cs" />
     <Compile Include="QrGenerator.cs" />

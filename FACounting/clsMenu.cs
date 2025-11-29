@@ -14,6 +14,9 @@ namespace EInvoice
 
     public class clsMenu
     {
+        SAPbouiCOM.Form oForm;
+        SAPbouiCOM.DBDataSource db;
+        SAPbobsCOM.Documents oInvoice;
         //Test Comments for TFS
 
         //public clsMenu()
@@ -93,14 +96,16 @@ namespace EInvoice
         private SAPbouiCOM.CheckBox oCheckBox;
 
         private SAPbouiCOM.PictureBox oPictureBox;
-
+        private SAPbouiCOM.EditText txtDocEntry;
         private int i;
         int lastFormType = -1;
+       
+        private String strInvNo;  
         public void SBO_Application_ItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, out bool BubbleEvent)
         {
             lastFormType = pVal.FormType;
             BubbleEvent = true;
-
+           
             if ((((pVal.FormType == 133 || pVal.FormType == 179 || pVal.FormType == 141 || pVal.FormType == 181) & pVal.EventType != SAPbouiCOM.BoEventTypes.et_FORM_UNLOAD) & (pVal.Before_Action == true)))
             {
 
@@ -136,7 +141,9 @@ namespace EInvoice
                     // add your own items to the form
 
                     oOrderForm.PaneLevel = 1;
-
+                    
+                    
+                    
                 }
 
                 if (pVal.ItemUID == "ZATCA" & pVal.EventType == SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED & pVal.Before_Action == true)
@@ -152,46 +159,44 @@ namespace EInvoice
                 }
 
             }
-            if (pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_LOAD && !pVal.BeforeAction)
-            {
 
-            }
-
+         
+            
 
 
-           /* if (pVal.FormType == 133 && pVal.ItemUID == "38" && pVal.ColUID == "1" &&
-     pVal.EventType == SAPbouiCOM.BoEventTypes.et_VALIDATE && !pVal.BeforeAction)
-            {
-                try
-                {
-                    SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(FormUID);
-                    SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)oForm.Items.Item("38").Specific;
-                    //SAPbouiCOM.EditText oUDF = (SAPbouiCOM.EditText)oForm.Items.Item("U_ClassificationCode").Specific;
+            /* if (pVal.FormType == 133 && pVal.ItemUID == "38" && pVal.ColUID == "1" &&
+      pVal.EventType == SAPbouiCOM.BoEventTypes.et_VALIDATE && !pVal.BeforeAction)
+             {
+                 try
+                 {
+                     SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(FormUID);
+                     SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)oForm.Items.Item("38").Specific;
+                     //SAPbouiCOM.EditText oUDF = (SAPbouiCOM.EditText)oForm.Items.Item("U_ClassificationCode").Specific;
 
-                    string itemCode = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("1").Cells.Item(pVal.Row).Specific).Value;
+                     string itemCode = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("1").Cells.Item(pVal.Row).Specific).Value;
 
-                    SAPbobsCOM.Recordset rs = (SAPbobsCOM.Recordset)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-                    string query = $"SELECT U_ClassificationCode, U_ClassificationClass, U_ProductTariffCode, U_ProductTariffClass FROM OITM WHERE ItemCode = '{itemCode}'";
-                    rs.DoQuery(query);
+                     SAPbobsCOM.Recordset rs = (SAPbobsCOM.Recordset)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                     string query = $"SELECT U_ClassificationCode, U_ClassificationClass, U_ProductTariffCode, U_ProductTariffClass FROM OITM WHERE ItemCode = '{itemCode}'";
+                     rs.DoQuery(query);
 
-                    if (!rs.EoF)
-                    {
-                        string classificationCode = rs.Fields.Item("U_ClassificationCode").Value?.ToString() ?? "";
-                        string classificationClass = rs.Fields.Item("U_ClassificationClass").Value?.ToString() ?? "";
-                        string tariffCode = rs.Fields.Item("U_ProductTariffCode").Value?.ToString() ?? "";
-                        string tariffClass = rs.Fields.Item("U_ProductTariffClass").Value?.ToString() ?? "";
-                        oMatrix.SetCellWithoutValidation(pVal.Row, "U_ClassificationCode", classificationCode);
-                        oMatrix.SetCellWithoutValidation(pVal.Row, "U_ClassificationClas", classificationClass);
-                        oMatrix.SetCellWithoutValidation(pVal.Row, "U_ProductTariffCode", tariffCode);
-                        oMatrix.SetCellWithoutValidation(pVal.Row, "U_ProductTariffClass", tariffClass);
-                    }
+                     if (!rs.EoF)
+                     {
+                         string classificationCode = rs.Fields.Item("U_ClassificationCode").Value?.ToString() ?? "";
+                         string classificationClass = rs.Fields.Item("U_ClassificationClass").Value?.ToString() ?? "";
+                         string tariffCode = rs.Fields.Item("U_ProductTariffCode").Value?.ToString() ?? "";
+                         string tariffClass = rs.Fields.Item("U_ProductTariffClass").Value?.ToString() ?? "";
+                         oMatrix.SetCellWithoutValidation(pVal.Row, "U_ClassificationCode", classificationCode);
+                         oMatrix.SetCellWithoutValidation(pVal.Row, "U_ClassificationClas", classificationClass);
+                         oMatrix.SetCellWithoutValidation(pVal.Row, "U_ProductTariffCode", tariffCode);
+                         oMatrix.SetCellWithoutValidation(pVal.Row, "U_ProductTariffClass", tariffClass);
+                     }
 
-                }
-                catch (Exception ex)
-                {
-                    Application.SBO_Application.MessageBox("UDF Fill Error: " + ex.Message);
-                }
-            }*/
+                 }
+                 catch (Exception ex)
+                 {
+                     Application.SBO_Application.MessageBox("UDF Fill Error: " + ex.Message);
+                 }
+             }*/
 
             if (pVal.FormTypeEx == "CancelForm" &&
       pVal.EventType == SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED &&
@@ -214,7 +219,10 @@ namespace EInvoice
                     {
                         Invoice.fnCancelDocument("OINV", reason, Program.oCompany);  // Your method
                     }
-                    else if(lastFormType == 141)
+                    else if(lastFormType == 179)
+                    {
+                        CreditNote.fnCancelDocument("ORIN", reason, Program.oCompany);
+                    } else if(lastFormType == 141)
                     {
                         SBInvoice.fnCancelDocument("OPCH", reason, Program.oCompany);
                     }
@@ -227,8 +235,56 @@ namespace EInvoice
                 }
             }
         }
+        public void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo pVal, out bool BubbleEvent)
+        {
+            BubbleEvent = true;
 
-            private void AddToPermissionTree(String strPermissionName, String strPermissionID, String strFormType, String strParentPermissionID)
+            if (pVal.FormTypeEx == "179" &&
+                pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD &&
+                pVal.ActionSuccess)
+            {
+                try
+                {
+                    SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+                    SAPbouiCOM.DBDataSource db = oForm.DataSources.DBDataSources.Item("ORIN");
+
+                    // DocEntry will always be available here
+                    string strDocEntry = db.GetValue("DocEntry", 0);
+                    int docEntry = Convert.ToInt32(strDocEntry);
+
+                    // Read your stored combo values
+                    // (Values saved previously in BeforeAction of ItemPressed)
+                    SAPbouiCOM.ComboBox oCombo = (SAPbouiCOM.ComboBox)oForm.Items.Item("Item_2").Specific;
+                    string selectedValue = oCombo.Selected != null ? oCombo.Selected.Value : ""; ;
+                    string selectedDesc = oCombo.Selected != null ? oCombo.Selected.Description.Split(' ')[0] : "";
+
+                    // Update document UDF using DI API
+                    SAPbobsCOM.Documents oCredit =
+                        (SAPbobsCOM.Documents)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oCreditNotes);
+
+                    if (oCredit.GetByKey(docEntry))
+                    {
+                        oCredit.UserFields.Fields.Item("U_OriginalInvoiceNumber").Value = selectedValue;
+                        oCredit.UserFields.Fields.Item("U_OriginalInvoiceIRBMUniqueIdentifierNumber").Value = selectedDesc;
+
+                        int ret = oCredit.Update();
+                        if (ret != 0)
+                        {
+                            string err = Program.oCompany.GetLastErrorDescription();
+                            Application.SBO_Application.SetStatusBarMessage("Update Failed: " + err);
+                        }
+                    }
+
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(oCredit);
+                }
+                catch (Exception ex)
+                {
+                    Application.SBO_Application.SetStatusBarMessage("Exception: " + ex.Message);
+                }
+            
+        }
+        }
+        private void AddToPermissionTree(String strPermissionName, String strPermissionID, String strFormType, String strParentPermissionID)
 		{
 			long RetVal;
 			//			long ErrCode;
@@ -264,30 +320,9 @@ namespace EInvoice
 				//grpSetPermission.Enabled = true;
 			}
 		}
-       
 
-
-    
-        public  void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
-        {
-            BubbleEvent = true;
-           
-            if (BusinessObjectInfo.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD
-              && BusinessObjectInfo.ActionSuccess && !BusinessObjectInfo.BeforeAction)
-            {
-               
-
-            }
-
-           
-
-              
-            }
-
-
-
-        }
     }
+}
 
 
 
