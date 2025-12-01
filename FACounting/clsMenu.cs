@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using System.IO;
 using Serilog;
 using SAPbouiCOM.Framework;
 
@@ -52,14 +46,6 @@ namespace EInvoice
             catch {
                 Log.Error("Exception in AddMenues");
             }
-
-
-            
- 
-
-         
-
-
         }
         public void SBO_Application_MenuEvent(ref SAPbouiCOM.MenuEvent pVal, out bool BubbleEvent)
         {
@@ -143,7 +129,6 @@ namespace EInvoice
                     oOrderForm.PaneLevel = 1;
                     
                     
-                    
                 }
 
                 if (pVal.ItemUID == "ZATCA" & pVal.EventType == SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED & pVal.Before_Action == true)
@@ -222,9 +207,14 @@ namespace EInvoice
                     else if(lastFormType == 179)
                     {
                         CreditNote.fnCancelDocument("ORIN", reason, Program.oCompany);
-                    } else if(lastFormType == 141)
+                    } 
+                    else if(lastFormType == 141)
                     {
                         SBInvoice.fnCancelDocument("OPCH", reason, Program.oCompany);
+                    }
+                    else if(lastFormType == 181)
+                    {
+                        SBCreditNote.fnCancelDocument("ORPC", reason, Program.oCompany);
                     }
                     
                     SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Cancel Request Completed", SAPbouiCOM.BoMessageTime.bmt_Medium, false);// Close popup after submit
@@ -239,14 +229,17 @@ namespace EInvoice
         {
             BubbleEvent = true;
 
-            if (pVal.FormTypeEx == "179" &&
+            if ((pVal.FormTypeEx == "179" || pVal.FormTypeEx == "181") &&
                 pVal.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD &&
                 pVal.ActionSuccess)
             {
                 try
                 {
                     SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
-                    SAPbouiCOM.DBDataSource db = oForm.DataSources.DBDataSources.Item("ORIN");
+                    SAPbouiCOM.DBDataSource db =
+               pVal.FormTypeEx == "179"
+               ? oForm.DataSources.DBDataSources.Item("ORIN")
+               : oForm.DataSources.DBDataSources.Item("ORPC");
 
                     // DocEntry will always be available here
                     string strDocEntry = db.GetValue("DocEntry", 0);
@@ -261,6 +254,10 @@ namespace EInvoice
                     // Update document UDF using DI API
                     SAPbobsCOM.Documents oCredit =
                         (SAPbobsCOM.Documents)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oCreditNotes);
+                    if (pVal.FormTypeEx == "179")
+                        oCredit = (SAPbobsCOM.Documents)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oCreditNotes);
+                    else
+                        oCredit = (SAPbobsCOM.Documents)Program.oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oPurchaseCreditNotes);
 
                     if (oCredit.GetByKey(docEntry))
                     {
