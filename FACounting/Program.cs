@@ -11,6 +11,8 @@ using EInvoice.Models;
 using Serilog;
 using Serilog.Events;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.Linq;
 //EInvoice SQL
 namespace EInvoice
 {
@@ -138,7 +140,38 @@ namespace EInvoice
             }
         }
 
-      
+        private const int _keyBytes = 32;
+        private const int _ivBytes = 16;
+        public static string DecryptWithEmbedKey(string cipherText)
+        {
+            string plaintext = null;
+            byte[] cipherTextBytesWithKeyAndIv = Convert.FromBase64String(cipherText);
+            byte[] keyStringBytes = cipherTextBytesWithKeyAndIv.Take(_keyBytes).ToArray();
+            byte[] ivStringBytes = cipherTextBytesWithKeyAndIv.Skip(_keyBytes).Take(_ivBytes).ToArray();
+            byte[] cipherTextBytes = cipherTextBytesWithKeyAndIv
+                .Skip(_keyBytes + _ivBytes)
+                .Take(cipherTextBytesWithKeyAndIv.Length - (_keyBytes + _ivBytes))
+                .ToArray();
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = keyStringBytes;
+                aesAlg.IV = ivStringBytes;
+                aesAlg.Mode = CipherMode.CBC;
+                aesAlg.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (var msDecrypt = new MemoryStream(cipherTextBytes))
+                using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                using (var srDecrypt = new StreamReader(csDecrypt))
+                {
+                    plaintext = srDecrypt.ReadToEnd();
+                }
+            }
+
+            return plaintext;
+        }
 
 
 

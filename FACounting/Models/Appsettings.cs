@@ -25,6 +25,8 @@ namespace EInvoice.Models
         public string OutputFolderPath { get; set; }
         [JsonPropertyName("apiurl")]
         public string APIUrl { get; set; }
+        [JsonPropertyName("documenttypes")]
+        public string DocumentTypes { get; set; }
 
     }
     public class FRXPathModel

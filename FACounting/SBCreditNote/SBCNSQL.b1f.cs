@@ -10,28 +10,41 @@ using static EInvoice.Models.Advin;
 //Test
 namespace EInvoice
 {
-	[FormAttribute("141", "SBINVSQL.b1f")]
-    class SBINVSQLb1f : SystemFormBase
+	[FormAttribute("181", "SBCreditNote/SBCNSQL.b1f")]
+    class SBCNSQLb1f : SystemFormBase
 	{
 		private static ILHDNAPIService _ILhdnApiService;
-        public SBINVSQLb1f()
-        {
+		public SBCNSQLb1f()
+		{
 			_ILhdnApiService = new LHDNAPIService();
 		}
-  
 
 		/// <summary>
 		/// Initialize components. Called by framework after form created.
 		/// </summary>
 		public override void OnInitializeComponent()
 		{
-            this.btnGen = ((SAPbouiCOM.Button)(this.GetItem("btnGen").Specific));
-            this.btnGen.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.btnGen_ClickAfter);
-            this.btnCancel = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
-            this.btnChkS = ((SAPbouiCOM.Button)(this.GetItem("btnChkS").Specific));
-            this.btnChkS.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.btnChkS_ClickAfter);
-            this.btncninv = ((SAPbouiCOM.Button)(this.GetItem("btncninv").Specific));
+			this.btnGen = ((SAPbouiCOM.Button)(this.GetItem("btnGen").Specific));
+			this.btnGen.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.btnGen_ClickAfter);
+			this.btnCancel = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
+			this.btnChkS = ((SAPbouiCOM.Button)(this.GetItem("btnChkS").Specific));
+			this.btnChkS.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.btnChkS_ClickAfter);
+			this.ComboBox2 = ((SAPbouiCOM.ComboBox)(this.GetItem("Item_2").Specific));
+			this.cboCustomer = ((SAPbouiCOM.EditText)(this.GetItem("4").Specific));
+			this.btncninv = ((SAPbouiCOM.Button)(this.GetItem("btncninv").Specific));
 			this.btncninv.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.btncninv_ClickAfter);
+			this.StaticText1 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_3").Specific));
+            this.ComboBox0 = ((SAPbouiCOM.ComboBox)(this.GetItem("Item_2").Specific));
+			var doctypes = Program.DecryptWithEmbedKey(AppConfigManager.Config.DocumentTypes);
+			var invtypes = doctypes.Split(',');
+			if (!invtypes.Contains("SBCreditNote", StringComparer.OrdinalIgnoreCase))
+			{
+				this.ComboBox2.Item.Visible = false;
+				this.StaticText1.Item.Visible = false;
+				this.btnChkS.Item.Visible = false;
+				this.btnGen.Item.Visible = false;
+				this.btncninv.Item.Visible = false;
+			}
 			this.OnCustomInitialize();
 
         }
@@ -43,11 +56,11 @@ namespace EInvoice
 		{
             this.DataAddAfter += new SAPbouiCOM.Framework.FormBase.DataAddAfterHandler(this.Form_DataAddAfter);
             this.DataAddBefore += new SAPbouiCOM.Framework.FormBase.DataAddBeforeHandler(this.Form_DataAddBefore);
-			this.DataUpdateBefore += new SAPbouiCOM.Framework.FormBase.DataUpdateBeforeHandler(this.Form_DataUpdateBefore);
+            this.DataUpdateBefore += new SAPbouiCOM.Framework.FormBase.DataUpdateBeforeHandler(this.Form_DataUpdateBefore);
 
         }
 
-        private SAPbouiCOM.Button btnGen;
+        
 
 		private void OnCustomInitialize()
 		{
@@ -68,6 +81,7 @@ namespace EInvoice
 			btncninv.Item.Top = btnChkS.Item.Top;
 			btncninv.Item.Width = btnChkS.Item.Width + 5;
 			btncninv.Item.LinkTo = btnChkS.Item.UniqueID;
+			this.cboCustomer.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(cboCustomer_LostFocusAfter);
 
 		}
 
@@ -75,8 +89,7 @@ namespace EInvoice
 		{
 			try
 			{
-				Log.Information("Sending SBInvoice...");
-
+				Log.Information("Sending SBCreditNote...");
 				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Processing please wait", SAPbouiCOM.BoMessageTime.bmt_Medium, false);
 
 				String strToken = "";
@@ -86,21 +99,23 @@ namespace EInvoice
 					if (objResults.Data.Token != null)
 					{
 						strToken = objResults.Data.Token;
-						SBInvoice.BaseB2B("OPCH", "PCH1", "PCH2", "PCH9", "PCH11", Program.oCompany, null, strToken);
+						SBCreditNote.BaseB2B("ORPC", "RPC1", "RPC2", "RPC9", "RPC11", Program.oCompany, null, strToken);
 
 					}
 					else
 					{
 						SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Login Token Not Found", SAPbouiCOM.BoMessageTime.bmt_Medium, true);
 					}
+
 				}
 				else
 				{
 					SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Login Failed", SAPbouiCOM.BoMessageTime.bmt_Medium, true);
 				}
-				Log.Information("SBInvoice Processed");
-				//	EINFLICK.FLICK.BaseB2B("OPCH", "PCH1", "PCH12", "PCH9", "PCH11", Program.oCompany);
-				//	EINFLICK.FLICK.fnCheckStatusUpdate("OPCH", Program.oCompany);
+				Log.Information("SBCreditNote Processed");
+
+				//	EINFLICK.FLICK.BaseB2B("ORPC", "RPC1", "RPC12", "RPC9", "RPC11", Program.oCompany);
+				//	EINFLICK.FLICK.fnCheckStatusUpdate("ORPC", Program.oCompany);
 				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Processed", SAPbouiCOM.BoMessageTime.bmt_Medium, false);
 
 
@@ -120,7 +135,7 @@ namespace EInvoice
 			{
 
 				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Checking Status please wait", SAPbouiCOM.BoMessageTime.bmt_Medium, false);
-			    SBInvoice.fnCheckStatusUpdate("OPCH", Program.oCompany);
+			    SBInvoice.fnCheckStatusUpdate("ORPC", Program.oCompany);
 				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Checking Status Completed", SAPbouiCOM.BoMessageTime.bmt_Medium, false);
 			}
 			catch (Exception ex)
@@ -132,89 +147,23 @@ namespace EInvoice
 
 		}
 
-
-		private void Form_DataAddBefore(ref SAPbouiCOM.BusinessObjectInfo pVal, out bool BubbleEvent)
+		private void cboCustomer_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
 		{
-
-			BubbleEvent = false;
 			try
 			{
-				
+				string selectedCardCode = cboCustomer.Value.Trim();
+
+				if (string.IsNullOrEmpty(selectedCardCode))
+				{
+					return;
+				}
+				SBCreditNote.FillComboFromDB(ComboBox2, Program.oCompany, selectedCardCode);
 			}
 			catch (Exception ex)
 			{
 				SAPbouiCOM.Framework.Application.SBO_Application.MessageBox(ex.Message, 1, "Ok");
-				BubbleEvent = false;
-				return;
-
 			}
-
-			BubbleEvent = true;
-
 		}
-		private void Form_DataAddAfter(ref SAPbouiCOM.BusinessObjectInfo pVal)
-		{
-			try
-			{
-				//SystemCore.Core64.BaseB2BSQL("OPCH", "PCH1", "PCH12", "PCH9", "PCH11", Program.oCompany);
-
-			}
-			catch (Exception ex)
-			{
-
-				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage(ex.Message, SAPbouiCOM.BoMessageTime.bmt_Medium, true);
-			}
-
-
-
-
-		}
-
-		private void Form_DataUpdateBefore(ref SAPbouiCOM.BusinessObjectInfo pVal, out bool BubbleEvent)
-		{
-			BubbleEvent = false;
-			try
-			{
-				//SystemCore.Core64.ValidateUpdate("OPCH", Program.oCompany);
-			}
-			catch (Exception ex)
-			{
-
-				SAPbouiCOM.Framework.Application.SBO_Application.MessageBox(ex.Message, 1, "Ok");
-
-				return;
-			}
-			BubbleEvent = true;
-
-		}
-
-		private SAPbouiCOM.Button btnCancel;
-		private SAPbouiCOM.Button btnChkS;
-		private SAPbouiCOM.Button btncninv;
-
-		private void Form_LoadAfter(SAPbouiCOM.SBOItemEventArg pVal)
-        {
-            throw new System.NotImplementedException();
-
-        }
-
-		private void btnGen_ClickBefore(object sboObject, SAPbouiCOM.SBOItemEventArg pVal, out bool BubbleEvent)
-		{
-			BubbleEvent = true;
-			throw new System.NotImplementedException();
-
-		}
-
-		private void btnCancel_ClickBefore(object sboObject, SAPbouiCOM.SBOItemEventArg pVal, out bool BubbleEvent)
-		{
-			BubbleEvent = true;
-			throw new System.NotImplementedException();
-
-		}
-
-
-
-
 		private void btncninv_ClickAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
 		{
 			try
@@ -299,5 +248,75 @@ namespace EInvoice
 				SAPbouiCOM.Framework.Application.SBO_Application.MessageBox("Error: " + ex.Message);
 			}
 		}
-	}
+		private void Form_DataAddBefore(ref SAPbouiCOM.BusinessObjectInfo pVal, out bool BubbleEvent)
+		{
+
+			BubbleEvent = false;
+			try
+			{
+				
+			}
+			catch (Exception ex)
+			{
+				SAPbouiCOM.Framework.Application.SBO_Application.MessageBox(ex.Message, 1, "Ok");
+				BubbleEvent = false;
+				return;
+
+			}
+
+			BubbleEvent = true;
+
+		}
+		private void Form_DataAddAfter(ref SAPbouiCOM.BusinessObjectInfo pVal)
+		{
+			try
+			{
+				//SystemCore.Core64.BaseB2BSQL("ORPC", "RPC1", "RPC12", "RPC9", "RPC11", Program.oCompany);
+
+			}
+			catch (Exception ex)
+			{
+
+				SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage(ex.Message, SAPbouiCOM.BoMessageTime.bmt_Medium, true);
+			}
+
+
+
+
+		}
+
+		private void Form_DataUpdateBefore(ref SAPbouiCOM.BusinessObjectInfo pVal, out bool BubbleEvent)
+		{
+			BubbleEvent = false;
+			try
+			{
+				//SystemCore.Core64.ValidateUpdate("ORPC", Program.oCompany);
+			}
+			catch (Exception ex)
+			{
+
+				SAPbouiCOM.Framework.Application.SBO_Application.MessageBox(ex.Message, 1, "Ok");
+
+				return;
+			}
+			BubbleEvent = true;
+
+		}
+		private SAPbouiCOM.Button btnGen;
+		private SAPbouiCOM.Button btnCancel;
+		private SAPbouiCOM.Button btnChkS;
+		private SAPbouiCOM.Button btncninv;
+		private SAPbouiCOM.EditText cboCustomer;
+		public SAPbouiCOM.ComboBox ComboBox2;
+		private SAPbouiCOM.StaticText StaticText0;
+
+		private void Form_LoadAfter(SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            throw new System.NotImplementedException();
+
+        }
+
+        private SAPbouiCOM.StaticText StaticText1;
+        private SAPbouiCOM.ComboBox ComboBox0;
+    }
 }
